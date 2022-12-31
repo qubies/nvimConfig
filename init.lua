@@ -1,3 +1,4 @@
+github="https://github.com/"
 require "user.impatient"
 require "user.options"
 require "user.keymaps"

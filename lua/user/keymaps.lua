@@ -47,8 +47,8 @@ keymap("v", "p", '"_dP', opts)
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
-keymap("v", "<S-Down>", ":move '>+1<CR>gv-gv", opts )
-keymap("v", "<S-Up>", ":move '<-2<CR>gv-gv", opts )
+keymap("v", "<S-Down>", ":move '>+1<CR>gv-gv", opts)
+keymap("v", "<S-Up>", ":move '<-2<CR>gv-gv", opts)
 
 -- Plugins --
 
