@@ -1,7 +1,7 @@
 -- Shorten function name
 local keymap = vim.keymap.set
 -- Silent keymap option
-local opts = { silent = true }
+local opts = { silent = true, noremap = true }
 
 --Remap space as leader key
 keymap("", "<Space>", "<Nop>", opts)
@@ -63,9 +63,11 @@ keymap("n", "<leader>ft", ":Telescope live_grep<CR>", opts)
 keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
 keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
 keymap("n", "<leader>fy", ":Telescope yank_history<CR>", opts)
+keymap("n", "<leader>fr", ":Telescope oldfiles<CR>", opts)
+keymap("n", "<leader>fn", ":enew<CR>", opts)
 
 -- Git
-keymap("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
+keymap("n", "<leader>g", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
 
 -- Comment
 keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
@@ -94,17 +96,53 @@ keymap("n", "<leader>sb", '<cmd>execute "normal \\<Plug>Ysurroundiw]"<cr>', opts
 keymap("n", "<leader>sc", '<cmd>execute "normal \\<Plug>Ysurroundiw}"<cr>', opts)
 keymap("n", "<leader>sq", '<cmd>execute "normal \\<Plug>Ysurroundiw\\""<cr>', opts)
 
-keymap("v", "<leader>sp", '<cmd>execute "normal \\<Plug>VSurround)"<cr>', opts)
-keymap("v", "<leader>sb", '<cmd>execute "normal \\<Plug>VSurround]"<cr>', opts)
-keymap("v", "<leader>sc", '<cmd>execute "normal \\<Plug>VSurround}"<cr>', opts)
-keymap("v", "<leader>sq", '<cmd>execute "normal \\<Plug>VSurround\\""<cr>', opts)
+keymap(
+	"v",
+	"<leader>sp",
+	'<cmd>execute "normal \\<Plug>VSurround)"<cr>',
+	{ desc = "Surround selection with parenthesis ()", unpack(opts) }
+)
+keymap(
+	"v",
+	"<leader>sb",
+	'<cmd>execute "normal \\<Plug>VSurround]"<cr>',
+	{ desc = "Surround selection with brackets []", unpack(opts) }
+)
+keymap(
+	"v",
+	"<leader>sc",
+	'<cmd>execute "normal \\<Plug>VSurround}"<cr>',
+	{ desc = "Surround selection with curlies {}", unpack(opts) }
+)
+keymap(
+	"v",
+	"<leader>sq",
+	'<cmd>execute "normal \\<Plug>VSurround\\""<cr>',
+	{ desc = 'Surround selection with quotes ""', unpack(opts) }
+)
 
 -- yanky
-vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
-vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
-vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
-vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
+keymap({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+keymap({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
+keymap({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
+keymap({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
 
-vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleForward)")
-vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleBackward)")
+keymap("n", "<c-p>", "<Plug>(YankyCycleForward)")
+keymap("n", "<c-n>", "<Plug>(YankyCycleBackward)")
 
+-- these ones maintain the indent as it is in the copied text
+-- keymap("n", "<leader>pa", "<Plug>(YankyPutIndentAfterLinewise)")
+-- keymap("n", "<leader>pb", "<Plug>(YankyPutIndentBeforeLinewise)")
+--
+-- these ones re-indent to match the existing test in the document
+keymap("n", "<leader>pa", "<Plug>(YankyPutAfterFilter)")
+keymap("n", "<leader>pb", "<Plug>(YankyPutBeforeFilter)")
+
+-- I doubt that ill ever use this... these require too much thought this way
+keymap("n", "<leader>pia", "<Plug>(YankyPutIndentAfterShiftRight)") -- indent more
+keymap("n", "<leader>pib", "<Plug>(YankyPutIndentBeforeShiftRight)") -- indent more
+keymap("n", "<leader>pra", "<Plug>(YankyPutIndentAfterShiftLeft)") -- deindent
+keymap("n", "<leader>prb", "<Plug>(YankyPutIndentBeforeShiftLeft)") -- deindent
+
+keymap("n", "<leader>pa", "<Plug>(YankyPutAfterFilter)")
+keymap("n", "<leader>pb", "<Plug>(YankyPutBeforeFilter)")
