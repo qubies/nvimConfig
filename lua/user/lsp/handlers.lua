@@ -77,7 +77,7 @@ local function lsp_keymaps(bufnr)
 		{ desc = "Find definition(s) in buffer", unpack(opts) }
 	)
 	keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Show symbol info", unpack(opts) })
-	keymap(bufnr, "n", "<leader>li", "<cmd>Telescope lsp_implementations<CR>", { desc = "", unpack(opts) })
+	keymap(bufnr, "n", "<leader>li", "<cmd>Telescope lsp_implementations<CR>", { desc = "Show Implementations", unpack(opts) })
 	keymap(
 		bufnr,
 		"n",

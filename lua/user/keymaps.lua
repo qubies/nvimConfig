@@ -39,8 +39,6 @@ keymap("n", "<leader>h", "<cmd>nohlsearch<CR>", opts)
 -- Close buffers
 keymap("n", "<S-q>", "<cmd>Bdelete!<CR>", opts)
 
--- Better paste
-keymap("v", "p", '"_dP', opts)
 
 -- Insert --
 
@@ -54,24 +52,35 @@ keymap("v", "<S-Up>", ":move '<-2<CR>gv-gv", opts)
 -- Plugins --
 
 -- NvimTree
-keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
+keymap("n", "<leader>e", ":NvimTreeToggle<CR>", 
+{desc="Open file tree", unpack(opts)})
 
 -- Telescope
-keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
-keymap("n", "<leader>fg", ":Telescope git_files<CR>", opts)
-keymap("n", "<leader>ft", ":Telescope live_grep<CR>", opts)
-keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
-keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
-keymap("n", "<leader>fy", ":Telescope yank_history<CR>", opts)
-keymap("n", "<leader>fr", ":Telescope oldfiles<CR>", opts)
-keymap("n", "<leader>fn", ":enew<CR>", opts)
+keymap("n", "<leader>ff", ":Telescope find_files<CR>", { desc = "Find all files in root", unpack(opts) })
+keymap("n", "<leader>fg", ":Telescope git_files<CR>", { desc = "Find in only git files", unpack(opts) })
+keymap("n", "<leader>ft", ":Telescope live_grep<CR>", { desc = "Find with RIPGrep", unpack(opts) })
+keymap("n", "<leader>fp", ":Telescope projects<CR>", { desc = "Find a project", unpack(opts) })
+keymap("n", "<leader>fb", ":Telescope buffers<CR>", { desc = "Find a buffer", unpack(opts) })
+keymap("n", "<leader>fy", ":Telescope yank_history<CR>", { desc = "Find yanks", unpack(opts) })
+keymap("n", "<leader>fr", ":Telescope oldfiles<CR>", { desc = "Find recent", unpack(opts) })
+keymap("n", "<leader>fn", ":enew<CR>", { desc = "Make a new file", unpack(opts) })
 
 -- Git
-keymap("n", "<leader>g", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", opts)
+keymap("n", "<leader>g", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", { desc = "Open lazygit", unpack(opts) })
 
 -- Comment
-keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
-keymap("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>')
+keymap(
+	"n",
+	"<leader>/",
+	"<cmd>lua require('Comment.api').toggle.linewise.current()<CR>",
+	{ desc = "Comment toggle line", unpack(opts) }
+)
+keymap(
+	"x",
+	"<leader>/",
+	'<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>',
+	{ desc = "Comment toggle block", unpack(opts) }
+)
 
 -- DAP
 keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", { desc = "Add breakpoint", unpack(opts) })
@@ -93,7 +102,7 @@ keymap(
 )
 
 -- undo
-keymap("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "", unpack(opts) })
+keymap("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "Open undo tree", unpack(opts) })
 
 -- surrounds
 keymap(
@@ -152,6 +161,9 @@ keymap({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
 keymap({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
 keymap({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
 
+-- Better paste
+keymap("v", "p", '"_dP', opts)
+
 keymap("n", "<c-p>", "<Plug>(YankyCycleForward)")
 keymap("n", "<c-n>", "<Plug>(YankyCycleBackward)")
 
@@ -160,16 +172,5 @@ keymap("n", "<c-n>", "<Plug>(YankyCycleBackward)")
 -- keymap("n", "<leader>pb", "<Plug>(YankyPutIndentBeforeLinewise)")
 --
 -- these ones re-indent to match the existing test in the document
-keymap("n", "<leader>pa", "<Plug>(YankyPutAfterFilter)")
-keymap("n", "<leader>pb", "<Plug>(YankyPutBeforeFilter)")
-keymap("n", "<leader>pj", "<Plug>(YankyPutAfterFilterJoined)")
-keymap("n", "<leader>pJ", "<Plug>(YankyPutBeforeJoined)")
-
--- I doubt that ill ever use this... these require too much thought this way
-keymap("n", "<leader>pia", "<Plug>(YankyPutIndentAfterShiftRight)") -- indent more
-keymap("n", "<leader>pib", "<Plug>(YankyPutIndentBeforeShiftRight)") -- indent more
-keymap("n", "<leader>pra", "<Plug>(YankyPutIndentAfterShiftLeft)") -- deindent
-keymap("n", "<leader>prb", "<Plug>(YankyPutIndentBeforeShiftLeft)") -- deindent
-
-keymap("n", "<leader>pa", "<Plug>(YankyPutAfterFilter)")
-keymap("n", "<leader>pb", "<Plug>(YankyPutBeforeFilter)")
+keymap("n", "<leader>pa", "<Plug>(YankyPutAfterFilter)", { desc = "Yanky put after and re-indent" })
+keymap("n", "<leader>pb", "<Plug>(YankyPutBeforeFilter)", { desc = "Yanky put before and re-indent" })
