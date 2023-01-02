@@ -18,15 +18,6 @@ wk.register({
         u = "Undo Tree",
         d = {
             name = "Debug",
-            b = "Add Breakpoint",
-            c = "Continue", 
-            i = "Step In",
-            l = "Run Last",
-            O = "Step Out",
-            o = "Step Over",
-            r = "Open REPL",
-            t = "Terminate", 
-            u = "Show DAP UI",
         },
         g   = "Lazygit",
         l = {
@@ -57,11 +48,6 @@ wk.register({
         },
         s = {
             name = "Surrounds",
-            b = "Add brackets [] to word",
-            c ={ "Add curly {} to word"},
-            p = "Add parenthesis () to word",
-            q = "Add quotes \"\" to word",
-
         }
 	},
 })

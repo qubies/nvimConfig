@@ -74,27 +74,52 @@ keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.curren
 keymap("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>')
 
 -- DAP
-keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", opts)
-keymap("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", opts)
-keymap("n", "<leader>di", "<cmd>lua require'dap'.step_into()<cr>", opts)
-keymap("n", "<leader>do", "<cmd>lua require'dap'.step_over()<cr>", opts)
-keymap("n", "<leader>dO", "<cmd>lua require'dap'.step_out()<cr>", opts)
-keymap("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", opts)
-keymap("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>", opts)
-keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", opts)
-keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", opts)
+keymap("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", { desc = "Add breakpoint", unpack(opts) })
+keymap("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>", { desc = "Continue", unpack(opts) })
+keymap("n", "<leader>di", "<cmd>lua require'dap'.step_into()<cr>", { desc = "Step Into", unpack(opts) })
+keymap("n", "<leader>do", "<cmd>lua require'dap'.step_over()<cr>", { desc = "Step Over", unpack(opts) })
+keymap("n", "<leader>dO", "<cmd>lua require'dap'.step_out()<cr>", { desc = "Step Out", unpack(opts) })
+keymap("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>", { desc = "Toggle REPL", unpack(opts) })
+keymap("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>", { desc = "Run Last", unpack(opts) })
+keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", { desc = "Open DAP UI", unpack(opts) })
+keymap("n", "<leader>dq", "<cmd>lua require'dap'.terminate()<cr>", { desc = "Quit debugger", unpack(opts) })
 
 -- Lsp
-keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
+keymap(
+	"n",
+	"<leader>lf",
+	"<cmd>lua vim.lsp.buf.format{ async = true }<cr>",
+	{ desc = "Format current buffer", unpack(opts) }
+)
 
 -- undo
-keymap("n", "<leader>u", "<cmd>UndotreeToggle<cr>", opts)
+keymap("n", "<leader>u", "<cmd>UndotreeToggle<cr>", { desc = "", unpack(opts) })
 
 -- surrounds
-keymap("n", "<leader>sp", '<cmd>execute "normal \\<Plug>Ysurroundiw)"<cr>', opts)
-keymap("n", "<leader>sb", '<cmd>execute "normal \\<Plug>Ysurroundiw]"<cr>', opts)
-keymap("n", "<leader>sc", '<cmd>execute "normal \\<Plug>Ysurroundiw}"<cr>', opts)
-keymap("n", "<leader>sq", '<cmd>execute "normal \\<Plug>Ysurroundiw\\""<cr>', opts)
+keymap(
+	"n",
+	"<leader>sp",
+	'<cmd>execute "normal \\<Plug>Ysurroundiw)"<cr>',
+	{ desc = "Surround word with parenthesis ()", unpack(opts) }
+)
+keymap(
+	"n",
+	"<leader>sb",
+	'<cmd>execute "normal \\<Plug>Ysurroundiw]"<cr>',
+	{ desc = "Surround word with brackets []", unpack(opts) }
+)
+keymap(
+	"n",
+	"<leader>sc",
+	'<cmd>execute "normal \\<Plug>Ysurroundiw}"<cr>',
+	{ desc = "Surround word with curlies {}", unpack(opts) }
+)
+keymap(
+	"n",
+	"<leader>sq",
+	'<cmd>execute "normal \\<Plug>Ysurroundiw\\""<cr>',
+	{ desc = 'Surround word with quotes ""', unpack(opts) }
+)
 
 keymap(
 	"v",
@@ -137,6 +162,8 @@ keymap("n", "<c-n>", "<Plug>(YankyCycleBackward)")
 -- these ones re-indent to match the existing test in the document
 keymap("n", "<leader>pa", "<Plug>(YankyPutAfterFilter)")
 keymap("n", "<leader>pb", "<Plug>(YankyPutBeforeFilter)")
+keymap("n", "<leader>pj", "<Plug>(YankyPutAfterFilterJoined)")
+keymap("n", "<leader>pJ", "<Plug>(YankyPutBeforeJoined)")
 
 -- I doubt that ill ever use this... these require too much thought this way
 keymap("n", "<leader>pia", "<Plug>(YankyPutIndentAfterShiftRight)") -- indent more
