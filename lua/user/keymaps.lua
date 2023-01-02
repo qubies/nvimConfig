@@ -17,6 +17,7 @@ vim.g.mapleader = " "
 
 -- Normal --
 -- Better window navigation
+-- Better window navigation
 keymap("n", "<C-Left>", "<C-w>h", opts)
 keymap("n", "<C-Down>", "<C-w>j", opts)
 keymap("n", "<C-Up>", "<C-w>k", opts)
@@ -85,3 +86,24 @@ keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opt
 
 -- undo
 keymap("n", "<leader>u", "<cmd>UndotreeToggle<cr>", opts)
+
+-- surrounds
+keymap("n", "<leader>sp", '<cmd>execute "normal \\<Plug>Ysurroundiw)"<cr>', opts)
+keymap("n", "<leader>sb", '<cmd>execute "normal \\<Plug>Ysurroundiw]"<cr>', opts)
+keymap("n", "<leader>sc", '<cmd>execute "normal \\<Plug>Ysurroundiw}"<cr>', opts)
+keymap("n", "<leader>sq", '<cmd>execute "normal \\<Plug>Ysurroundiw\\""<cr>', opts)
+
+keymap("v", "<leader>sp", '<cmd>execute "normal \\<Plug>VSurround)"<cr>', opts)
+keymap("v", "<leader>sb", '<cmd>execute "normal \\<Plug>VSurround]"<cr>', opts)
+keymap("v", "<leader>sc", '<cmd>execute "normal \\<Plug>VSurround}"<cr>', opts)
+keymap("v", "<leader>sq", '<cmd>execute "normal \\<Plug>VSurround\\""<cr>', opts)
+
+-- yanky
+vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
+vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
+vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
+vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
+
+vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleForward)")
+vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleBackward)")
+

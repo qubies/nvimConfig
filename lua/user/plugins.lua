@@ -46,7 +46,6 @@ return packer.startup(function(use)
 	-- My plugins here
 	use({ github .. "wbthomason/packer.nvim", commit = "6afb67460283f0e990d35d229fd38fdc04063e0a" }) -- Have packer manage itself
 	use({ github .. "nvim-lua/plenary.nvim", commit = "4b7e52044bbb84242158d977a50c4cbcd85070c7" }) -- Useful lua functions used by lots of plugins
-	use({ github .. "windwp/nvim-autopairs", commit = "4fc96c8f3df89b6d23e5092d31c866c53a346347" }) -- Autopairs, integrates with both cmp and treesitter
 	use({ github .. "numToStr/Comment.nvim", commit = "97a188a98b5a3a6f9b1b850799ac078faa17ab67" })
 	use({ github .. "JoosepAlviste/nvim-ts-context-commentstring", commit = "32d9627123321db65a4f158b72b757bcaef1a3f4" })
 	use({ github .. "kyazdani42/nvim-web-devicons", commit = "563f3635c2d8a7be7933b9e547f7c178ba0d4352" })
@@ -59,6 +58,17 @@ return packer.startup(function(use)
 	use({ github .. "lewis6991/impatient.nvim", commit = "b842e16ecc1a700f62adb9802f8355b99b52a5a6" })
 	use({ github .. "lukas-reineke/indent-blankline.nvim", commit = "db7cbcb40cc00fc5d6074d7569fb37197705e7f6" })
 	use({ github .. "goolord/alpha-nvim", commit = "0bb6fc0646bcd1cdb4639737a1cee8d6e08bcc31" })
+
+    -- surrounds
+	use({ github .. "windwp/nvim-autopairs", commit = "4fc96c8f3df89b6d23e5092d31c866c53a346347" }) -- Autopairs, integrates with both cmp and treesitter
+	use({ github .. "tpope/vim-surround"}) -- surround change brackets
+	use({ github .. "tpope/vim-repeat"}) -- allows repetition of surrounds
+
+    -- cause I can't remember things
+    use ({ github .. "folke/which-key.nvim" })
+
+    -- search
+    use ({ github .. "ggandor/lightspeed.nvim" })
 
 	-- Colorschemes
 	use({ github .. "folke/tokyonight.nvim", commit = "66bfc2e8f754869c7b651f3f47a2ee56ae557764" })
@@ -103,6 +113,9 @@ return packer.startup(function(use)
     
     -- undo
     use ({github .. 'mbbill/undotree'})
+
+    -- yank
+    use ({github .. 'gbprod/yanky.nvim'})
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
