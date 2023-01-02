@@ -23,3 +23,6 @@ telescope.setup {
     },
   },
 }
+
+-- for yanky
+telescope.load_extension("yank_history")
