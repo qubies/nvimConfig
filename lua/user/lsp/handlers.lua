@@ -51,23 +51,85 @@ M.setup = function()
 	})
 end
 
+local function symbol_finder(type)
+	return string.format('<cmd>lua require("telescope.builtin").lsp_workspace_symbols({symbols="%s"})<CR>', type)
+end
+
+local function diagnostic_finder(severity)
+	return string.format('<cmd>lua require("telescope.builtin").diagnostics({severity="%s"})<CR>', severity)
+end
+
 local function lsp_keymaps(bufnr)
 	local opts = { noremap = true, silent = true }
 	local keymap = vim.api.nvim_buf_set_keymap
-	keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	keymap(bufnr, "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-	keymap(bufnr, "n", "<leader>li", "<cmd>LspInfo<cr>", opts)
-	keymap(bufnr, "n", "<leader>lI", "<cmd>Mason<cr>", opts)
-	keymap(bufnr, "n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
-	keymap(bufnr, "n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", opts)
-	keymap(bufnr, "n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", opts)
-	keymap(bufnr, "n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
-	keymap(bufnr, "n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	keymap(bufnr, "n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+	keymap(
+		bufnr,
+		"n",
+		"<leader>lD",
+		"<cmd>lua vim.lsp.buf.declaration()<CR>",
+		{ desc = "Goto declaration in buffer", unpack(opts) }
+	)
+	keymap(
+		bufnr,
+		"n",
+		"<leader>ld",
+		"<cmd>Telescope lsp_definitions<CR>",
+		{ desc = "Find definition(s) in buffer", unpack(opts) }
+	)
+	keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { desc = "Show symbol info", unpack(opts) })
+	keymap(bufnr, "n", "<leader>li", "<cmd>Telescope lsp_implementations<CR>", { desc = "Show Implementations", unpack(opts) })
+	keymap(
+		bufnr,
+		"n",
+		"<leader>lR",
+		"<cmd>Telescope lsp_references<CR>",
+		{ desc = "Find references for symbol", unpack(opts) }
+	)
+	keymap(bufnr, "n", "<leader>lea", diagnostic_finder(), { desc = "Show all errors/diagnostics", unpack(opts) })
+	keymap(bufnr, "n", "<leader>lee", diagnostic_finder("error"), { desc = "Show only error dignostics", unpack(opts) })
+	keymap(
+		bufnr,
+		"n",
+		"<leader>lew",
+		diagnostic_finder("warn"),
+		{ desc = "Show only warning diagnostics", unpack(opts) }
+	)
+	keymap(bufnr, "n", "<leader>lei", diagnostic_finder("info"), { desc = "Show only info dignostics", unpack(opts) })
+	keymap(
+		bufnr,
+		"n",
+		"<leader>la",
+		"<cmd>lua vim.lsp.buf.code_action()<cr>",
+		{ desc = "Show options to fix error (actions)", unpack(opts) }
+	)
+	keymap(bufnr, "n", "<leader>lfa", symbol_finder(), { desc = "Find all symbols", unpack(opts) })
+	keymap(bufnr, "n", "<leader>lfv", symbol_finder("variable"), { desc = "Find all variables", unpack(opts) })
+	keymap(bufnr, "n", "<leader>lfc", symbol_finder("class"), { desc = "Find all classes", unpack(opts) })
+	keymap(bufnr, "n", "<leader>lfs", symbol_finder("struct"), { desc = "Find all structs", unpack(opts) })
+	keymap(
+		bufnr,
+		"n",
+		"<leader>ld",
+		"<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>",
+		{ desc = "Next diagnostic", unpack(opts) }
+	)
+	keymap(
+		bufnr,
+		"n",
+		"<leader>lD",
+		"<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>",
+		{ desc = "Previous diagnostic", unpack(opts) }
+	)
+	keymap(bufnr, "n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", { desc = "Rename/refactor", unpack(opts) })
+	keymap(
+		bufnr,
+		"n",
+		"<leader>ls",
+		"<cmd>lua vim.lsp.buf.signature_help()<CR>",
+		{ desc = "Show signature", unpack(opts) }
+	)
+	keymap(bufnr, "n", "<leader>lm", "<cmd>LspInfo<cr>", { desc = "Show status of lsp", unpack(opts) })
+	keymap(bufnr, "n", "<leader>lI", "<cmd>Mason<cr>", { desc = "Install new LSP", unpack(opts) })
 end
 
 M.on_attach = function(client, bufnr)
