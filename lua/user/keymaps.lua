@@ -85,7 +85,7 @@ keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>", opts)
 keymap("n", "<leader>dt", "<cmd>lua require'dap'.terminate()<cr>", opts)
 
 -- Lsp
-keymap("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
+keymap("n", "<leader>lff", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
 
 -- undo
 keymap("n", "<leader>u", "<cmd>UndotreeToggle<cr>", opts)
