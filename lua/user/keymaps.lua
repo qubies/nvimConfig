@@ -97,7 +97,7 @@ keymap("n", "<leader>dq", "<cmd>lua require'dap'.terminate()<cr>", { desc = "Qui
 -- Lsp
 keymap(
 	"n",
-	"<leader>lf",
+	"<leader>lff",
 	"<cmd>lua vim.lsp.buf.format{ async = true }<cr>",
 	{ desc = "Format current buffer", unpack(opts) }
 )
