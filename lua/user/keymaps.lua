@@ -177,8 +177,6 @@ keymap("n", "<leader>pa", "<Plug>(YankyPutAfterFilter)", { desc = "Yanky put aft
 keymap("n", "<leader>pb", "<Plug>(YankyPutBeforeFilter)", { desc = "Yanky put before and re-indent" })
 
 
--- load refactoring Telescope extension
-require("telescope").load_extension("refactoring")
 
 -- remap to open the Telescope refactoring menu in visual mode
 keymap(
