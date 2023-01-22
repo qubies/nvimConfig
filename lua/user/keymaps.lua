@@ -63,6 +63,7 @@ keymap("n", "<leader>fp", ":Telescope projects<CR>", { desc = "Find a project", 
 keymap("n", "<leader>fb", ":Telescope buffers<CR>", { desc = "Find a buffer", unpack(opts) })
 keymap("n", "<leader>fy", ":Telescope yank_history<CR>", { desc = "Find yanks", unpack(opts) })
 keymap("n", "<leader>fr", ":Telescope oldfiles<CR>", { desc = "Find recent", unpack(opts) })
+keymap("n", "<leader>fk", ":Telescope keymaps<CR>", { desc = "Find keymaps", unpack(opts) })
 keymap("n", "<leader>fn", ":enew<CR>", { desc = "Make a new file", unpack(opts) })
 
 -- Git
@@ -174,3 +175,27 @@ keymap("n", "<c-n>", "<Plug>(YankyCycleBackward)")
 -- these ones re-indent to match the existing test in the document
 keymap("n", "<leader>pa", "<Plug>(YankyPutAfterFilter)", { desc = "Yanky put after and re-indent" })
 keymap("n", "<leader>pb", "<Plug>(YankyPutBeforeFilter)", { desc = "Yanky put before and re-indent" })
+
+
+-- load refactoring Telescope extension
+require("telescope").load_extension("refactoring")
+
+-- remap to open the Telescope refactoring menu in visual mode
+keymap(
+	"v",
+	"<leader>rr",
+	"<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
+	{ noremap = true }
+)
+-- Remaps for the refactoring operations currently offered by the plugin
+keymap("v", "<leader>re", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]], {noremap = true, silent = true, expr = false, desc="Extract Function"})
+keymap("v", "<leader>rf", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]], {noremap = true, silent = true, expr = false, desc="Extract function to file"})
+keymap("v", "<leader>rv", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>]], {noremap = true, silent = true, expr = false, desc="Extract Variable"})
+keymap("v", "<leader>ri", [[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]], {noremap = true, silent = true, expr = false, desc="Inline Variable"})
+
+-- Extract block doesn't need visual mode
+keymap("n", "<leader>rb", [[ <Cmd>lua require('refactoring').refactor('Extract Block')<CR>]], {noremap = true, silent = true, expr = false, desc = "Extract Block"})
+keymap("n", "<leader>rbf", [[ <Cmd>lua require('refactoring').refactor('Extract Block To File')<CR>]], {noremap = true, silent = true, expr = false, desc = "Extract Block to File"})
+
+-- Inline variable can also pick up the identifier currently under the cursor without visual mode
+keymap("n", "<leader>ri", [[ <Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]], {noremap = true, silent = true, expr = false, desc="Inline Vasiable"})
