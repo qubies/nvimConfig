@@ -3,9 +3,8 @@ if not status_ok then
   return
 end
 
-require("telescope").load_extension("refactoring")
-
 local actions = require "telescope.actions"
+
 telescope.setup {
   defaults = {
 

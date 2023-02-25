@@ -72,14 +72,7 @@ local function lsp_keymaps(bufnr)
 	keymap(
 		bufnr,
 		"n",
-		"<leader>l?",
-		"<cmd>Telescope lsp_definitions<CR>",
-		{ desc = "Find definition(s) in buffer", unpack(opts) }
-	)
-	keymap(
-		bufnr,
-		"n",
-		"gd",
+		"<leader>ld",
 		"<cmd>Telescope lsp_definitions<CR>",
 		{ desc = "Find definition(s) in buffer", unpack(opts) }
 	)

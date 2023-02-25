@@ -7,10 +7,6 @@ local servers = {
 	"bashls",
 	"jsonls",
 	"yamlls",
-    "ltex",
-    "texlab",
-    "gopls",
-    "gotests"
 }
 
 local settings = {

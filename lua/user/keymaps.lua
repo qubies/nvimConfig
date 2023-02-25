@@ -177,6 +177,8 @@ keymap("n", "<leader>pa", "<Plug>(YankyPutAfterFilter)", { desc = "Yanky put aft
 keymap("n", "<leader>pb", "<Plug>(YankyPutBeforeFilter)", { desc = "Yanky put before and re-indent" })
 
 
+-- load refactoring Telescope extension
+require("telescope").load_extension("refactoring")
 
 -- remap to open the Telescope refactoring menu in visual mode
 keymap(
@@ -197,6 +199,3 @@ keymap("n", "<leader>rbf", [[ <Cmd>lua require('refactoring').refactor('Extract 
 
 -- Inline variable can also pick up the identifier currently under the cursor without visual mode
 keymap("n", "<leader>ri", [[ <Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]], {noremap = true, silent = true, expr = false, desc="Inline Vasiable"})
-
--- vimtex
-keymap("n", "<leader>tc", ":VimtexCompile<cr>", {desc="Toggle latex compiler", unpack(opts)} )
