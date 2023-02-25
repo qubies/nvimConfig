@@ -197,3 +197,6 @@ keymap("n", "<leader>rbf", [[ <Cmd>lua require('refactoring').refactor('Extract 
 
 -- Inline variable can also pick up the identifier currently under the cursor without visual mode
 keymap("n", "<leader>ri", [[ <Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]], {noremap = true, silent = true, expr = false, desc="Inline Vasiable"})
+
+-- vimtex
+keymap("n", "<leader>tc", ":VimtexCompile<cr>", {desc="Toggle latex compiler", unpack(opts)} )
